@@ -1,7 +1,6 @@
 #include <iostream>
 #include <vector>
 #include <queue>
-#include <stack>
 using namespace std;
 const int N = 1e8+1;
 typedef pair<int,int> ii;
