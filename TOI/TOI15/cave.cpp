@@ -1,13 +1,22 @@
 /*
     50/100  TIME LIMIT EXCEEDED :(
 */
-
+int path[2005];
 #include <iostream>
 #include <queue>
 using namespace std;
 typedef pair<int,int> ii;
 typedef vector<ii> vii;
 typedef priority_queue<ii,vii,greater<ii>> PQ;
+
+void printPath(int u){
+    if (path[u] == u){
+        cout << u;
+        return;
+    }
+    printPath(path[u]);
+    cout << " -> " << u;
+}
 
 typedef long long int lli;
 vii G[2005];
@@ -41,6 +50,7 @@ int main(){
             
             if (v1 == u){
                 //cout << "\nYES\n";
+                printPath(v1);
                 ans = dist[v1];
                 break;
                 //finish = true;
@@ -58,18 +68,20 @@ int main(){
                     if (v1 == p && dist[v1]+d < dist[v2]){
                         //cout << " hi1 ";
                         dist[v2] = dist[v1]+d;
+                        path[v2] = v1; 
                         //ans += dist[v2];
                         Q.emplace(dist[v2],v2);
-                    }else if (v1 != p && d ist[v1]+d+h < dist[v2]) {
+                    }else if (v1 != p && dist[v1]+d+h < dist[v2]) {
                        // cout << " hi2 ";
                         dist[v2] = dist[v1]+d+h;
+                        path[v2] = v1;
                         //ans += dist[v2];
                         Q.emplace(dist[v2],v2);
                     }
                 }
             }
         }
-        cout << ans << " ";
+        cout << "\n" << ans << " ";
     }
     return 0;
 }
