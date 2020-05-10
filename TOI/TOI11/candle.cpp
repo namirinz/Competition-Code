@@ -1,3 +1,6 @@
+/*
+    https://www.proprog.ml/tasks/toi11_candle/descs/6785
+*/
 #include <iostream>
 #include <queue>
 using namespace std;

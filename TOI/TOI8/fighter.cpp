@@ -1,3 +1,6 @@
+/*
+    https://www.proprog.ml/tasks/toi8_fighter/descs/276
+*/
 #include <iostream>
 using namespace std;
 int main(){

@@ -1,4 +1,5 @@
 /*
+    https://www.proprog.ml/tasks/toi15_cave/descs/15446
     50/100  TIME LIMIT EXCEEDED :(
 */
 int path[2005];

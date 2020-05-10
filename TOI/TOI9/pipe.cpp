@@ -1,3 +1,6 @@
+/*
+    https://www.proprog.ml/tasks/toi9_pipe/descs/285
+*/
 #include <iostream>
 #include <tuple>
 #include <queue>

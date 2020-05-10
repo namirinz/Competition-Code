@@ -1,3 +1,6 @@
+/*
+    https://www.proprog.ml/tasks/toi13_budget/descs/12573
+*/
 #include <bits/stdc++.h>
 using namespace std;
 typedef pair<int,int> ii;

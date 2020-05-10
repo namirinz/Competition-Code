@@ -1,3 +1,6 @@
+/*
+    https://www.proprog.ml/tasks/toi8_sport/descs/277
+*/
 #include<iostream>
 #include <vector>
 using namespace std;

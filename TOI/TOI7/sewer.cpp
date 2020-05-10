@@ -1,3 +1,6 @@
+/*
+    https://www.proprog.ml/tasks/toi7_sewer/descs/262
+*/
 #include <iostream>
 #include <queue>
 #include <tuple>

@@ -1,3 +1,6 @@
+/*
+    https://www.proprog.ml/tasks/toi11_place/descs/6789
+*/
 #include <bits/stdc++.h>
 using namespace std;
 typedef tuple<int,int,int> iii;

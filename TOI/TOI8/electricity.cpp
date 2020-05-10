@@ -1,3 +1,6 @@
+/*
+    https://www.proprog.ml/tasks/toi8_electricity/descs/278
+*/
 #include <bits/stdc++.h>
 using namespace std;
 int main()

@@ -1,3 +1,6 @@
+/*
+    https://www.proprog.ml/tasks/toi12_cablecar/descs/6792
+*/
 #include <bits/stdc++.h>
 using namespace std;
 typedef pair<int,int> ii;

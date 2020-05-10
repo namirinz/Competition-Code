@@ -1,3 +1,6 @@
+/*
+    https://www.proprog.ml/tasks/toi10_goschool/descs/6776
+*/
 #include<bits/stdc++.h>
 using namespace std;
 typedef long long int ll;

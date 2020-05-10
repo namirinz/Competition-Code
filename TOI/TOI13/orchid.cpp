@@ -1,3 +1,6 @@
+/*
+    https://www.proprog.ml/tasks/toi13_orchid/descs/12571
+*/
 #include <iostream>
 #include <algorithm>
 #include <vector>

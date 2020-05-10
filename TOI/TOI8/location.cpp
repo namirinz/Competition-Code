@@ -1,3 +1,6 @@
+/*
+    https://www.proprog.ml/tasks/toi8_location/descs/279
+*/
 #include <bits/stdc++.h>
 using namespace std;
 

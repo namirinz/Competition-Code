@@ -1,3 +1,6 @@
+/*
+    https://www.proprog.ml/tasks/toi7_car/descs/263
+*/
 #include <iostream>
 #include <queue>
 #include <tuple>
