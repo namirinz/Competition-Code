@@ -1,5 +1,6 @@
 /*
-	Time Complexity : O(K*M*2logN)
+	https://www.proprog.ml/tasks/toi11_cannon/descs/6788
+   	Time Complexity : O(K*M*2logN)
 	// K <= 400, M <= 1,000, N <= 1,000,000
  
 */
