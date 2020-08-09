@@ -1,101 +1,93 @@
-/*
-    https://www.proprog.ml/tasks/toi13_budget/descs/12573
-*/
 #include <bits/stdc++.h>
 using namespace std;
 typedef pair<int,int> ii;
 typedef vector<ii> vii;
-typedef priority_queue<ii,vii,greater<ii>> PQ;
+typedef priority_queue<ii, vii, greater<ii>> PQ;
 
+PQ Q1, Q2;
+vii G[10005];
+vector<int> dist1(10005,INT_MAX), dist2(10005, INT_MAX);
+tuple<int,int,int> ans = make_tuple(INT_MAX, INT_MAX, INT_MAX); // node, distance(s->e), distance(e->s)
+bool isvisited1[10005], isvisited2[10005];
+bool reach = false;
 
-int main(){
-    int ans1,ans2,ans3;
-    int n,m;
-    scanf("%d %d",&n,&m);
-    int s,f,v;
-    scanf("%d %d %d",&s,&f,&v);
-    
-    vii G[n+1];
+int v1_1, v2_1, w_1;
+int v1_2, v2_2, w_2;
+
+void make_graph(int m){
+    int v1,v2,w;
     for (int i=0;i<m;i++){
-        scanf("%d%d%d",&ans1,&ans2,&ans3);
-        G[ans1].emplace_back(ans2,ans3);
-        G[ans2].emplace_back(ans1,ans3);
+        scanf("%d %d %d",&v1,&v2,&w);
+        G[v1].emplace_back(v2, w);
+        G[v2].emplace_back(v1, w);
     }
-    //ans1 == node that nearest to finsih node
-    //ans2 == distance from start node to ans1
-    //ans3 == distance from ans1 to finish
-    ans1 = INT_MAX; ans2 = INT_MAX; ans3 = INT_MAX;
+}
 
-    PQ Q1;
-    vector<int> dist1(n+1,INT_MAX);
+void Dijkstra2(int s,int e){
+    dist2[s] = 0;
+    Q2.emplace(0, s);
+    while( !Q2.empty() ){
+        v1_2 = Q2.top().second;
+        Q2.pop();
+        if (isvisited2[v1_2]) continue;
+        isvisited2[v1_2] = true;
+        //if (v1_2 == e) break;
+
+        for (auto k:G[v1_2]){
+            v2_2 = k.first;
+            w_2 = k.second;
+            if (!isvisited2[v2_2] && dist2[v1_2]+w_2 < dist2[v2_2]){
+                dist2[v2_2] = dist2[v1_2]+w_2;
+                Q2.emplace(dist2[v2_2], v2_2);
+            }
+        }
+    }
+}
+
+void Dijkstra1(int s,int e,int v){
     dist1[s] = 0;
-    Q1.emplace(0,s);
-    while (!(Q1.empty())){
-        int d1 = Q1.top().first;
-        int v1 = Q1.top().second;
+    Q1.emplace(0, s);
+    while( !Q1.empty() ){
+        v1_1 = Q1.top().second;
         Q1.pop();
-
-        if (v1 == f){
-            ans1 = f;
-            ans2 = dist1[v1];
-            ans3 = 0;
+        if (isvisited1[v1_1]) continue;
+        isvisited1[v1_1] = true;
+        if (v1_1 == e){
+            //printf("%d %d %d",v1_1,dist1[v1_1],dist2[v1_1]);
+            ans = make_tuple(v1_1,dist1[v1_1],dist2[v1_1]);
             break;
         }
+        for (auto k : G[v1_1]){
+            v2_1 = k.first;
+            w_1 = k.second;
 
-        if ( d1 > dist1[v1]) continue;
-
-        for (auto k: G[v1]){
-            int n1 = k.first;
-            int w1 = k.second;
-            
-            if (dist1[v1] + w1 > v){
-                if ( n1 == f){
-                    if ( w1 == ans3 && v1 < ans1 ||w1 < ans3 ){
-                        ans1 = v1;
-                        ans2 = dist1[v1];
-                        ans3 = w1;
-                    }
-                }
-                PQ Q2;
-                vector<int> dist2(n+1,INT_MAX);
-                dist2[v1] = 0;
-                Q2.emplace(0,v1);
-                while (!(Q2.empty())){
-                    int d2 = Q2.top().first;
-                    int v2 = Q2.top().second;
-
-                    Q2.pop();
-
-                    if (v2 == f){
-                        if ( dist2[v2] == ans3 && v1 < ans1 || dist2[v2] < ans3){
-                            ans1 = v1;
-                            ans2 = dist1[v1];
-                            ans3 = dist2[v2];
-                        }
-                    }
-
-                    if (d2 > dist2[v2]) continue;
-
-                    for (auto l : G[v2]){
-                        int n2 = l.first;
-                        int w2 = l.second;
-
-                        if (dist2[v2]+w2 > ans3){continue;}
-                        else if (dist2[v2]+w2 < dist2[n2]){
-                            dist2[n2] = dist2[v2]+w2;
-                            Q2.emplace(dist2[n2],n2);
-                        }
-                    }
-                }
+            if (!isvisited1[v2_1] && dist1[v1_1]+w_1 <= v && dist1[v1_1]+w_1 < dist1[v2_1]){
+                dist1[v2_1] = dist1[v1_1]+w_1;
+                Q1.emplace(dist1[v2_1], v2_1);
             }
-
-            else if ( dist1[v1]+w1 < dist1[n1]){
-                dist1[n1] = dist1[v1]+w1;
-                Q1.emplace(dist1[n1],n1);
+            else if (!isvisited1[v2_1] && dist1[v1_1]+w_1 > v && dist1[v1_1]+w_1 < dist1[v2_1]){
+                //printf(" HELLO SO YEAH %d\n",v1_1);
+                if (dist2[v1_1] < get<2>(ans) || dist2[v1_1] == get<2>(ans) && v1_1 < get<0>(ans)){
+                    //printf(" hello 1 \n");
+                    ans = make_tuple(v1_1, dist1[v1_1], dist2[v1_1]);
+                }
             }
         }
     }
+}
 
-    printf("%d %d %d",ans1,ans2,ans3);
+int main(){
+    int n,m;
+    scanf("%d %d",&n,&m);
+
+    int s,e,v;
+    scanf("%d %d %d",&s,&e,&v);
+
+    make_graph(m);
+
+    Dijkstra2(e, s);
+    Dijkstra1(s, e, v);
+
+    printf("%d %d %d",get<0>(ans), get<1>(ans), get<2>(ans));
     return 0;
 }
